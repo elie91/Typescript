@@ -1,0 +1,18 @@
+{
+  "name": "3_sorting_algo_app",
+  "version": "1.0.0",
+  "description": "* command: tsc -w * node build/index.js",
+  "main": "index.js",
+  "scripts": {
+    "start:build": "tsc -w",
+    "start:run": "nodemon build/index.js",
+    "start": "concurrently npm:start:*"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.6"
+  }
+}
