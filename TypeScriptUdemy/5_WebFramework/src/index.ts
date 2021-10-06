@@ -12,4 +12,4 @@ user.events.trigger('click');
 
 console.log(user)
 
-user.fetch()
+//xuser.sync.fetch(user.get('id'))
