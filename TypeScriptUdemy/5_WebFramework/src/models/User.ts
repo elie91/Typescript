@@ -52,4 +52,9 @@ export class User {
         this.set(response.data);
     }
 
+    async save(): Promise<void> {
+        await this.sync.save(this.attributes.getAll())
+        this.events.trigger('save')
+    }
+
 }
