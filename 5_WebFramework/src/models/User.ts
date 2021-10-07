@@ -12,9 +12,9 @@ export interface UserProps {
 const rootUrl = 'http://localhost:3000/users';
 
 export class User {
-    public attributes: Attributes<UserProps>;
-    public events: Eventing = new Eventing();
-    public sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
+    private attributes: Attributes<UserProps>;
+    private events: Eventing = new Eventing();
+    private sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
 
     constructor(attrs: UserProps) {
         this.attributes = new Attributes<UserProps>(attrs);
