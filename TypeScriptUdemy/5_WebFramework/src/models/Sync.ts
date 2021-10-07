@@ -12,10 +12,20 @@ export class Sync<T extends HasId> {
         this.rootUrl = rootUrl;
     }
 
+    /**
+     * 
+     * @param id
+     * @returns AxiosPromise
+     */
     fetch(id: number): AxiosPromise {
         return axios.get(`${this.rootUrl}/${id}`)
     }
 
+    /**
+     * 
+     * @param data 
+     * @returns AxiosPromise
+     */
     save(data: T): AxiosPromise {
         const { id } = data;
         if (id) {
