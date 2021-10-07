@@ -41,20 +41,6 @@ class Car { }
 let car: Car = new Car();
 
 
-//************* function *****************************************
-const logNumber: (i: number) => void = (i: number) => {
-    console.log(i);
-}
-const add = (a: number, b: number): number => {
-    return a + b;
-}
-function divide(a: number, b: number): number {
-    return a / b;
-}
-const multiply = function (a: number, b: number): number {
-    return a * b;
-}
-
 //************* void & never ************************************
 const logger = (message: string): void => {
     console.log(message);
