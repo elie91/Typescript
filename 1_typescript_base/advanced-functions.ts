@@ -99,3 +99,32 @@ function multiply(n: number, ...m: number[]) {
 }
 // 'a' gets value [10, 20, 30, 40]
 const result = multiply(10, 1, 2, 3, 4);
+
+
+
+// Exemple 
+
+class Car {
+    print() {
+        console.log('car')
+    }
+}
+
+class House {
+    print() {
+        console.log('house')
+    }
+}
+
+interface Printable {
+    print(): void
+}
+
+function printHouseOrCars<T extends Printable>(arr: T[]): void {
+    for (let i = 0; i < arr.length; i++) {
+        arr[i].print();
+    }
+}
+
+printHouseOrCars<House>([new House(), new House()]);
+printHouseOrCars<Car>([new Car(), new Car()]);
