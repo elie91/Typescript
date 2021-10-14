@@ -1,7 +1,8 @@
+import { Model } from "./Model";
 import { Eventing } from "./Eventing";
-import { Sync } from './Sync';
+import { ApiSync } from './ApiSync';
 import { Attributes } from './Attributes';
-import { AxiosResponse } from "axios";
+//import { LocalStorageSync } from "./LocalStorageSync";
 
 export interface UserProps {
     id?: number;
@@ -11,50 +12,24 @@ export interface UserProps {
 
 const rootUrl = 'http://localhost:3000/users';
 
-export class User {
-    private attributes: Attributes<UserProps>;
-    private events: Eventing = new Eventing();
-    private sync: Sync<UserProps> = new Sync<UserProps>(rootUrl);
-
-    constructor(attrs: UserProps) {
-        this.attributes = new Attributes<UserProps>(attrs);
+export class User extends Model<UserProps> {
+    static buildUser(attrs: UserProps): User {
+        return new User(
+            new Attributes<UserProps>(attrs),
+            new Eventing(),
+            new ApiSync<UserProps>(rootUrl)
+        )
     }
 
-    // Not good, we need to check what is the function signature
-    /*  on(eventName: string, callback: Callback): void {
-         this.events.on(eventName, callback)
-     } */
-
-    get on() {
-        //Not calling the function, but return a reference
-        return this.events.on
-    }
-
-    get trigger() {
-        return this.events.trigger
-    }
-
-    get get() {
-        return this.attributes.get
-    }
-
-    set(update: UserProps) {
-        this.attributes.set(update);
-        this.events.trigger('change')
-    }
-
-    async fetch(): Promise<void> {
-        const id = this.attributes.get('id');
-        if (!id) {
-            throw new Error('Missing ID')
+    /*     static buildLocalUser(attrs: UserProps): User {
+            return new User(
+                new Attributes<UserProps>(attrs),
+                new Eventing(),
+                new LocalStorageSync<UserProps>()
+            )
         }
-        const response: AxiosResponse = await this.sync.fetch(id)
-        this.set(response.data);
+     */
+    isAdminUser(): boolean {
+        return this.get('id') === 1
     }
-
-    async save(): Promise<void> {
-        await this.sync.save(this.attributes.getAll())
-        this.events.trigger('save')
-    }
-
 }
